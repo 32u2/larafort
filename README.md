@@ -83,6 +83,13 @@ As Fortify does not come with views, this set of blade templates needs to be cre
 Add into ```app/Providers/FortifyServiceProvider```:
 
 ```
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+```
+
+and
+
+```
 public function boot()
 {
     Fortify::loginView(function () {
