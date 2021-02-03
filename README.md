@@ -5,19 +5,25 @@
 
 ## Installation
 
+```
 composer create-project --prefer-dist laravel/laravel larafort
 cd larafort
+```
 
-(adjust .env file as needed to accommodate local db)
+(adjust ```.env``` file as needed to accommodate local db)
 
+```
 composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 php artisan migrate
+```
 
+```
 npm i
 npm install --save bootstrap jquery popper.js cross-env
+```
 
-Adjust resources/js/bootstrap.js:
+Adjust ```resources/js/bootstrap.js```:
 
 ``` javascript
 try {
@@ -29,16 +35,17 @@ try {
 }
 ```
 
-Delete resources/css folder and create app.scss file in resources/sass
+Delete ```resources/css``` folder and create ```app.scss``` file in resources/sass
 
-Import packages in the resources/sass/app.scss file:
+Import packages in the ```resources/sass/app.scss``` file:
 
 ``` css
 // bootstrap
 @import "~bootstrap/scss/bootstrap";
 ```
 
-Update webpack.mix.js:
+Update ```webpack.mix.js```:
+
 ``` javascript
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
@@ -60,7 +67,7 @@ Run ```npm run dev``` to compile assets
 
 ### Add Fortify provider
 
-app/Providers/FortifyServiceProvider.
+Add into ```app/Providers/FortifyServiceProvider```:
 
 ```
 public function boot()
@@ -100,9 +107,8 @@ public function boot()
 
 ### Register Fortify provider
 
-Add the new provider to your array of providers in config/app.php.
+Add the new provider to your array of providers in ```config/app.php```:
 
-config/app.php
 
 ```
 'providers' => [
