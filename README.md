@@ -1,8 +1,8 @@
 # Laravel Starter
 
-Current options are to use legacy ```laravel/ui``` package which provides Bootstrap and rudimentary authorization, or to use [Breeze](https://github.com/laravel/breeze) which offers Fortify auth flow, but with Tailwind instead of Bootstrap.
+Current options are to use legacy [laravel/ui](https://github.com/laravel/ui) package which provides Bootstrap and rudimentary authorization, or to use [Breeze](https://github.com/laravel/breeze) which offers Fortify auth flow, but with Tailwind instead of Bootstrap.
 
-This starter does not rely on ```laravel/ui```, nor on [Breeze](https://github.com/laravel/breeze), but it does incorporate both Fortify and Bootstrap 4.
+This starter does not rely on [laravel/ui](https://github.com/laravel/ui), nor on [Breeze](https://github.com/laravel/breeze), but it does incorporate both Fortify and Bootstrap 4.
 
 - Fortify
 - Bootstrap 4
