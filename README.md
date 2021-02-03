@@ -1,139 +1,62 @@
-# Laravel Starter
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-Current options are to use legacy [laravel/ui](https://github.com/laravel/ui) package which provides Bootstrap and rudimentary authorization, or to use [Breeze](https://github.com/laravel/breeze) which offers Fortify auth flow, but with Tailwind instead of Bootstrap.
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-This starter does not rely on [laravel/ui](https://github.com/laravel/ui), nor on [Breeze](https://github.com/laravel/breeze), but it does incorporate both Fortify and Bootstrap 4.
+## About Laravel
 
-- Fortify
-- Bootstrap 4
-- Sass
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Recreate this starter
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Steps to recreate this starter are as follows:
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-```
-composer create-project --prefer-dist laravel/laravel larafort
-cd larafort
-```
+## Learning Laravel
 
-(adjust ```.env``` file as needed to accommodate local db)
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## Add Fortify
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-```
-composer require laravel/fortify
-php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-php artisan migrate
-```
+## Laravel Sponsors
 
-## Add Bootstrap
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-```
-npm i
-npm install --save bootstrap jquery popper.js cross-env
-```
+### Premium Partners
 
-Adjust ```resources/js/bootstrap.js```:
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/)**
+- **[OP.GG](https://op.gg)**
 
-``` javascript
-try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+## Contributing
 
-    require('bootstrap');
-} catch (e) {
-}
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-Delete ```resources/css``` folder and create ```app.scss``` file in resources/sass
+## Code of Conduct
 
-Import packages in the ```resources/sass/app.scss``` file:
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-``` css
-// bootstrap
-@import "~bootstrap/scss/bootstrap";
-```
+## Security Vulnerabilities
 
-Update ```webpack.mix.js```:
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-``` javascript
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
-```
+## License
 
-Run ```npm run dev``` to compile assets
-
-## Fortify chores
-
-### Views
-
-As Fortify does not come with views, this set of blade templates needs to be created:
-
-- resources/views/layouts/app.blade.php 
-- resources/views/home.blade.php
-- resources/views/auth/login.blade.php
-- resources/views/auth/register.blade.php
-- resources/views/auth/forgot-password.blade.php
-- resources/views/auth/reset-password.blade.php
-- resources/views/auth/verify-email.blade.php
-
-### Add Fortify provider
-
-Add into ```app/Providers/FortifyServiceProvider```:
-
-```
-public function boot()
-{
-    Fortify::loginView(function () {
-        return view('auth.login');
-    });
-
-    Fortify::authenticateUsing(function (Request $request) {
-        $user = User::where('email', $request->email)->first();
-
-        if ($user &&
-            Hash::check($request->password, $user->password)) {
-            return $user;
-        }
-    });
-
-    Fortify::registerView(function () {
-        return view('auth.register');
-    });
-
-    Fortify::requestPasswordResetLinkView(function () {
-        return view('auth.forgot-password');
-    });
-
-    Fortify::resetPasswordView(function ($request) {
-        return view('auth.reset-password', ['request' => $request]);
-    });
-
-    Fortify::verifyEmailView(function () {
-        return view('auth.verify-email');
-    });
-
-    // ...
-}
-```
-
-### Register Fortify provider
-
-Add the new provider to your array of providers in ```config/app.php```:
-
-
-```
-'providers' => [
-    /*
-     * Application Service Providers...
-     */
-
-    [...]
-
-    App\Providers\FortifyServiceProvider::class,
-    
-]
-```
-
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

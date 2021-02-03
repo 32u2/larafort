@@ -6,6 +6,8 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -31,7 +33,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Fortify::loginView(function () {return view('auth.login');});
+        Fortify::loginView(function () {
+            return view('auth.login');
+        });
+
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
 
@@ -40,10 +45,22 @@ class FortifyServiceProvider extends ServiceProvider
                 return $user;
             }
         });
-        Fortify::registerView(function () {return view('auth.register');});
-        Fortify::requestPasswordResetLinkView(function () {return view('auth.forgot-password');});
-        Fortify::resetPasswordView(function ($request) {return view('auth.reset-password', ['request' => $request]);});
-        Fortify::verifyEmailView(function () {return view('auth.verify-email');});
+
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth.forgot-password');
+        });
+
+        Fortify::resetPasswordView(function ($request) {
+            return view('auth.reset-password', ['request' => $request]);
+        });
+
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
+        });
 
         // ...
 
