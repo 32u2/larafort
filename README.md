@@ -1,9 +1,18 @@
 # Laravel Starter
+
+Current options are to use legacy ```laravel/ui``` package which provides Bootstrap and rudimentary authorization, or to use Breeze which offers Fortify auth flow, but with Tailwind instead of Bootstrap.
+
+This starter does not rely on ```laravel/ui```, but it does incorporates both Fortify and Bootstrap 4.
+
 - Fortify
 - Bootstrap 4
 - Sass
 
-## Installation
+(no laravel/ui package is used)
+
+## Recreate this starter
+
+Steps to recreate this starter are as follows:
 
 ```
 composer create-project --prefer-dist laravel/laravel larafort
@@ -56,6 +65,8 @@ Run ```npm run dev``` to compile assets
 ## Fortify chores
 
 ### Views
+
+As Fortify does not come with views, this set of blade templates needs to be created:
 
 - resources/views/layouts/app.blade.php 
 - resources/views/auth/login.blade.php
