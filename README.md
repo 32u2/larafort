@@ -2,7 +2,7 @@
 
 Current options are to use legacy ```laravel/ui``` package which provides Bootstrap and rudimentary authorization, or to use Breeze which offers Fortify auth flow, but with Tailwind instead of Bootstrap.
 
-This starter does not rely on ```laravel/ui```, but it does incorporates both Fortify and Bootstrap 4.
+This starter does not rely on ```laravel/ui```, but it does incorporate both Fortify and Bootstrap 4.
 
 - Fortify
 - Bootstrap 4
@@ -71,12 +71,12 @@ Run ```npm run dev``` to compile assets
 As Fortify does not come with views, this set of blade templates needs to be created:
 
 - resources/views/layouts/app.blade.php 
+- resources/views/home.blade.php
 - resources/views/auth/login.blade.php
 - resources/views/auth/register.blade.php
 - resources/views/auth/forgot-password.blade.php
 - resources/views/auth/reset-password.blade.php
 - resources/views/auth/verify-email.blade.php
-- resources/views/home.blade.php
 
 ### Add Fortify provider
 
@@ -128,8 +128,11 @@ Add the new provider to your array of providers in ```config/app.php```:
     /*
      * Application Service Providers...
      */
-    App\Providers\FortifyServiceProvider::class,
+
     [...]
+
+    App\Providers\FortifyServiceProvider::class,
+    
 ]
 ```
 
