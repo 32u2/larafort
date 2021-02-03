@@ -8,8 +8,6 @@ This starter does not rely on ```laravel/ui```, but it does incorporates both Fo
 - Bootstrap 4
 - Sass
 
-(no laravel/ui package is used)
-
 ## Recreate this starter
 
 Steps to recreate this starter are as follows:
@@ -21,11 +19,15 @@ cd larafort
 
 (adjust ```.env``` file as needed to accommodate local db)
 
+## Add Fortify
+
 ```
 composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 php artisan migrate
 ```
+
+## Add Bootstrap
 
 ```
 npm i
